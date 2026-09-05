@@ -1,108 +1,204 @@
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+// Smooth scrolling and navigation
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    const cartBadge = document.querySelector('.cart-badge');
+    const toast = document.getElementById('toast');
+
+    // Hamburger menu toggle
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
             });
+        });
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.nav-container')) {
+            navMenu.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
         }
     });
-});
 
-// Cart counter
-let cartCount = 0;
-const cartBadge = document.querySelector('.cart-badge');
-
-document.querySelectorAll('.btn-flavor').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        cartCount++;
-        cartBadge.textContent = cartCount;
-        
-        // Animation feedback
-        this.style.background = 'green';
-        this.textContent = 'ADICIONADO!';
-        
-        setTimeout(() => {
-            this.style.background = '';
-            this.textContent = 'COMPRE AGORA';
-        }, 2000);
+    // Smooth scroll for anchor links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
     });
-});
 
-// Newsletter subscription
-const newsletterForm = document.querySelector('.newsletter-form');
-if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = this.querySelector('input[type="email"]').value;
-        
-        if (email) {
-            alert(`Obrigado por se inscrever! Confirmação enviada para ${email}`);
+    // Cart functionality
+    let cartCount = 0;
+    const flavorButtons = document.querySelectorAll('.btn-flavor');
+
+    flavorButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            cartCount++;
+            cartBadge.textContent = cartCount;
+
+            // Show toast notification
+            showToast('Bolo adicionado ao carrinho! 🍰');
+
+            // Button feedback
+            const originalText = this.textContent;
+            this.textContent = '✓ ADICIONADO';
+            this.style.backgroundColor = '#52b788';
+
+            setTimeout(() => {
+                this.textContent = originalText;
+                this.style.backgroundColor = '';
+            }, 2000);
+        });
+    });
+
+    // Newsletter subscription
+    const newsletterForm = document.querySelector('.newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = this.querySelector('input[type="email"]');
+            const email = emailInput.value;
+
+            if (email) {
+                showToast(`Email ${email} inscrito com sucesso! 📧`);
+                this.reset();
+            }
+        });
+    }
+
+    // Contact form submission
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showToast('Mensagem enviada com sucesso! Obrigado por entrar em contato. 💌');
             this.reset();
-        }
-    });
-}
+        });
+    }
 
-// Animação de scroll reveal para elementos
-const revealOnScroll = () => {
-    const elements = document.querySelectorAll('.flavor-card, .feature, .testimonial');
-    
-    const observer = new IntersectionObserver((entries) => {
+    // Toast notification function
+    function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    // Scroll reveal animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
             }
         });
-    });
-    
-    elements.forEach(element => {
+    }, observerOptions);
+
+    // Observe elements for scroll reveal
+    const revealElements = document.querySelectorAll(
+        '.flavor-card, .feature, .testimonial, .custom-placeholder, .story-placeholder, .hero-placeholder'
+    );
+
+    revealElements.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(20px)';
         element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(element);
     });
-};
 
-// Inicializar animações ao carregar
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', revealOnScroll);
-} else {
-    revealOnScroll();
-}
-
-// Active nav link tracking
-const updateActiveLink = () => {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    
-    window.addEventListener('scroll', () => {
+    // Active navigation link tracking
+    window.addEventListener('scroll', function() {
         let current = '';
-        
+        const sections = document.querySelectorAll('section[id]');
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            
-            if (pageYOffset >= sectionTop - 200) {
+
+            if (pageYOffset >= sectionTop - 300) {
                 current = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').slice(1) === current) {
+            const href = link.getAttribute('href').slice(1);
+            if (href === current) {
                 link.style.color = 'var(--primary-color)';
             } else {
                 link.style.color = 'var(--text-dark)';
             }
         });
     });
-};
 
-updateActiveLink();
+    // Prevent body scroll when menu is open
+    const navMenuElement = document.querySelector('.nav-menu');
+    const hamburgerElement = document.querySelector('.hamburger');
 
-console.log('✨ Bem-vindo à Doceria Social! 🍰');
+    if (hamburgerElement) {
+        hamburgerElement.addEventListener('click', function() {
+            if (navMenuElement.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    // View all flavors button
+    const viewAllBtn = document.querySelector('.btn-view-all');
+    if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', function() {
+            showToast('Veja todos os sabores disponíveis! 🎉');
+        });
+    }
+
+    // Lazy load images if needed
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    console.log('✨ Bem-vindo à Doceria Social! 🍰');
+});

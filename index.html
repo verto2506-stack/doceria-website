@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doceria Social - Bolos Caseiros, A Qualquer Hora, Em Qualquer Lugar</title>
+    <title>Doceria Social - Bolos Caseiros Artesanais 🍰</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
@@ -22,15 +23,19 @@
                 <ul class="nav-menu">
                     <li><a href="#shop">LOJA</a></li>
                     <li><a href="#flavors">SABORES</a></li>
-                    <li><a href="#custom">BOLOS PERSONALIZADOS</a></li>
-                    <li><a href="#about">SOBRE NÓS</a></li>
-                    <li><a href="#events">EVENTOS</a></li>
+                    <li><a href="#custom">PERSONALIZADOS</a></li>
+                    <li><a href="#about">SOBRE</a></li>
                     <li><a href="#contact">CONTATO</a></li>
                 </ul>
                 <div class="nav-icons">
-                    <a href="#search"><i class="fas fa-search"></i></a>
-                    <a href="#account"><i class="fas fa-user"></i></a>
-                    <a href="#cart"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
+                    <a href="#search" class="icon-link"><i class="fas fa-search"></i></a>
+                    <a href="#account" class="icon-link"><i class="fas fa-user"></i></a>
+                    <a href="#cart" class="icon-link cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
+                </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
         </nav>
@@ -41,44 +46,47 @@
         <div class="hero-content">
             <p class="hero-subtitle">FEITO COM AMOR ❤️</p>
             <h1>A vida é<br><span class="hero-highlight">melhor</span><br>com bolo.</h1>
-            <p class="hero-description">Bolos deliciosos em potes, feitos com amor.<br>Feitos para os momentos doces da vida.</p>
+            <p class="hero-description">Bolos artesanais em potes, feitos com os melhores ingredientes.<br>Perfeitos para celebrar os momentos doces da sua vida.</p>
             <div class="hero-buttons">
-                <button class="btn btn-primary">COMPRE AGORA</button>
-                <button class="btn btn-secondary">EXPLORE SABORES</button>
+                <button class="btn btn-primary" onclick="document.getElementById('flavors').scrollIntoView({behavior: 'smooth'})">COMPRE AGORA</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('flavors').scrollIntoView({behavior: 'smooth'})">EXPLORE SABORES</button>
             </div>
         </div>
         <div class="hero-image">
-            <img src="images/hero-cake.jpg" alt="Bolo em pote vermelho veludo">
+            <div class="hero-placeholder">
+                <i class="fas fa-birthday-cake"></i>
+                <p>Imagem do Bolo</p>
+            </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section class="features" id="shop">
         <div class="features-container">
             <div class="feature">
                 <i class="fas fa-heart"></i>
                 <h3>FEITO COM AMOR</h3>
-                <p>Cada bolo é<br>feito com cuidado.</p>
+                <p>Cada bolo é feito com cuidado e dedicação.</p>
             </div>
             <div class="feature">
                 <i class="fas fa-leaf"></i>
-                <h3>INGREDIENTES DE QUALIDADE</h3>
-                <p>Usamos apenas<br>ingredientes premium.</p>
+                <h3>INGREDIENTES PREMIUM</h3>
+                <p>Usamos apenas ingredientes de alta qualidade.</p>
             </div>
             <div class="feature">
                 <i class="fas fa-utensils"></i>
                 <h3>FEITO À MÃO</h3>
-                <p>Pequenos lotes<br>com grande sabor.</p>
+                <p>Pequenos lotes com grande sabor e qualidade.</p>
             </div>
             <div class="feature">
                 <i class="fas fa-gift"></i>
-                <h3>PERFEITO PARA QUALQUER OCASIÃO</h3>
-                <p>Aniversários, celebrações,<br>ou só porque sim.</p>
+                <h3>QUALQUER OCASIÃO</h3>
+                <p>Anivers., celebrações ou só porque você merece.</p>
             </div>
             <div class="feature">
                 <i class="fas fa-truck"></i>
-                <h3>ENTREGA EM TODO BRASIL</h3>
-                <p>Deliciosamente entregue<br>na sua porta.</p>
+                <h3>ENTREGA RÁPIDA</h3>
+                <p>Entregamos deliciosamente em sua casa.</p>
             </div>
         </div>
     </section>
@@ -87,102 +95,184 @@
     <section id="flavors" class="flavors">
         <div class="section-title">
             <h2>EXPLORE NOSSOS SABORES</h2>
+            <div class="title-line"></div>
         </div>
         <div class="flavors-grid">
             <div class="flavor-card">
-                <img src="images/bolo-aniversario.jpg" alt="Bolo de Aniversário">
-                <h3>BOLO DE ANIVERSÁRIO</h3>
+                <div class="flavor-image">
+                    <div class="placeholder-img golden">
+                        <i class="fas fa-cake-candles"></i>
+                    </div>
+                </div>
+                <h3>BOLO ANIVERS.</h3>
+                <p class="flavor-price">R$ 39,90</p>
                 <button class="btn-flavor">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
-                <img src="images/bolo-chocolate.jpg" alt="Bolo de Chocolate">
+                <div class="flavor-image">
+                    <div class="placeholder-img brown">
+                        <i class="fas fa-cake-candles"></i>
+                    </div>
+                </div>
                 <h3>CHOCOLATE INTENSO</h3>
+                <p class="flavor-price">R$ 42,90</p>
                 <button class="btn-flavor">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
-                <img src="images/bolo-veludo.jpg" alt="Bolo Veludo Vermelho">
+                <div class="flavor-image">
+                    <div class="placeholder-img red">
+                        <i class="fas fa-cake-candles"></i>
+                    </div>
+                </div>
                 <h3>VELUDO VERMELHO</h3>
+                <p class="flavor-price">R$ 45,90</p>
                 <button class="btn-flavor">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
-                <img src="images/bolo-morango.jpg" alt="Bolo de Morango">
+                <div class="flavor-image">
+                    <div class="placeholder-img pink">
+                        <i class="fas fa-cake-candles"></i>
+                    </div>
+                </div>
                 <h3>MORANGO DELICIOSO</h3>
+                <p class="flavor-price">R$ 41,90</p>
                 <button class="btn-flavor">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
-                <img src="images/bolo-cookies.jpg" alt="Bolo Cookies e Creme">
+                <div class="flavor-image">
+                    <div class="placeholder-img cream">
+                        <i class="fas fa-cake-candles"></i>
+                    </div>
+                </div>
                 <h3>COOKIES & CREME</h3>
+                <p class="flavor-price">R$ 43,90</p>
                 <button class="btn-flavor">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
-                <img src="images/bolo-caramelo.jpg" alt="Bolo Caramelo Salgado">
+                <div class="flavor-image">
+                    <div class="placeholder-img caramel">
+                        <i class="fas fa-cake-candles"></i>
+                    </div>
+                </div>
                 <h3>CARAMELO SALGADO</h3>
+                <p class="flavor-price">R$ 44,90</p>
                 <button class="btn-flavor">COMPRE AGORA</button>
             </div>
         </div>
         <button class="btn btn-view-all">VER TODOS OS SABORES</button>
     </section>
 
+    <!-- Custom Cakes -->
+    <section id="custom" class="custom-cakes">
+        <div class="custom-content">
+            <h2>Bolos Personalizados</h2>
+            <p class="custom-subtitle">Tem um sabor especial em mente? Criamos bolo do jeito que você quer!</p>
+            <p class="custom-description">
+                Nossa equipe está pronta para criar um bolo único e personalizado para suas ocasiões especiais. 
+                De sabores clássicos a combinações criativas, nós realizamos seus desejos.
+            </p>
+            <ul class="custom-features">
+                <li><i class="fas fa-check"></i> Sabores personalizados</li>
+                <li><i class="fas fa-check"></i> Decorações especiais</li>
+                <li><i class="fas fa-check"></i> Tamanhos variados</li>
+                <li><i class="fas fa-check"></i> Entrega conforme agendado</li>
+            </ul>
+            <button class="btn btn-primary">SOLICITAR ORÇAMENTO</button>
+        </div>
+        <div class="custom-image">
+            <div class="custom-placeholder">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                <p>Bolo Personalizado</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Our Story -->
     <section id="about" class="story">
         <div class="story-image">
-            <img src="images/story-box.jpg" alt="Caixa de Bolos Doceria Social">
+            <div class="story-placeholder">
+                <i class="fas fa-gift"></i>
+                <p>Caixa de Bolos</p>
+            </div>
         </div>
         <div class="story-content">
             <p class="story-label">NOSSA HISTÓRIA</p>
-            <h2>Mais Do Que Bolo,<br><span class="highlight">É Conexão.</span></h2>
-            <p>A Doceria Social foi criada para reunir as pessoas através da simplicidade de um bolo delicioso. Seja um pequeno prêmio para você mesmo ou uma maneira especial de celebrar outros, estamos aqui para tornar cada momento inesquecível.</p>
-            <button class="btn btn-primary">NOSSA HISTÓRIA</button>
+            <h2>Mais do que bolo,<br><span class="highlight">é conexão.</span></h2>
+            <p>
+                A Doceria Social nasceu da paixão por criar momentos especiais através de bolos artesanais deliciosos. 
+                Acreditamos que cada bolo é uma celebração, cada pedaço é uma memória e cada cliente é parte da nossa família.
+            </p>
+            <p>
+                Nosso compromisso é usar apenas ingredientes premium, preparados com cuidado e amor para garantir 
+                que você e seus entes queridos desfrutem de momentos verdadeiramente inesquecíveis.
+            </p>
+            <button class="btn btn-primary">CONHEÇA NOSSA HISTÓRIA</button>
         </div>
     </section>
 
     <!-- Testimonials -->
     <section class="testimonials">
         <h2>O QUE AS PESSOAS ESTÃO DIZENDO</h2>
+        <div class="title-line"></div>
         <div class="testimonials-grid">
             <div class="testimonial">
                 <div class="stars">★★★★★</div>
-                <p>"Finalmente achei o bolo perfeito para cada momento."</p>
-                <p class="author">- JESSICA M.</p>
+                <p class="testimonial-text">"Finalmente achei o bolo perfeito para cada momento. A qualidade é excelente!"</p>
+                <p class="author">— JESSICA M.</p>
             </div>
             <div class="testimonial">
                 <div class="stars">★★★★★</div>
-                <p>"Acidentalmente pedi mais. Não me arrependo!"</p>
-                <p class="author">- MARIO T.</p>
+                <p class="testimonial-text">"Acidentalmente pedi mais de um sabor. Não me arrependo! Todos são incríveis."</p>
+                <p class="author">— MARIO T.</p>
             </div>
             <div class="testimonial">
                 <div class="stars">★★★★★</div>
-                <p>"Esses bolos são meu lanche favorito agora."</p>
-                <p class="author">- ALEX P.</p>
+                <p class="testimonial-text">"Esses bolos viraram meu lanche favorito. Entrega rápida e sempre fresco!"</p>
+                <p class="author">— ALEX P.</p>
             </div>
         </div>
-    </section>
-
-    <!-- Community -->
-    <section class="community">
-        <h2>JUNTE-SE À COMUNIDADE DOCERIA SOCIAL</h2>
-        <p>@doceriasocial</p>
-        <div class="community-grid">
-            <img src="images/community-1.jpg" alt="Comunidade 1">
-            <img src="images/community-2.jpg" alt="Comunidade 2">
-            <img src="images/community-3.jpg" alt="Comunidade 3">
-            <img src="images/community-4.jpg" alt="Comunidade 4">
-            <img src="images/community-5.jpg" alt="Comunidade 5">
-            <img src="images/community-6.jpg" alt="Comunidade 6">
-        </div>
-        <button class="btn btn-secondary">SIGA-NOS NO INSTAGRAM</button>
     </section>
 
     <!-- Newsletter -->
     <section class="newsletter">
-        <h2>RECEBA AS MELHORES OFERTAS</h2>
-        <div class="newsletter-content">
-            <div class="newsletter-text">
-                <p>📧 Lançamentos Novos | 🎁 Ofertas Especiais</p>
-            </div>
+        <div class="newsletter-container">
+            <h2>RECEBA AS MELHORES OFERTAS</h2>
+            <p class="newsletter-subtitle">📧 Lançamentos Novos | 🎁 Ofertas Especiais | 💝 Descontos Exclusivos</p>
             <form class="newsletter-form">
                 <input type="email" placeholder="Digite seu email" required>
                 <button type="submit" class="btn btn-primary">INSCREVER-SE</button>
+            </form>
+            <p class="newsletter-notice">Nunca compartilharemos seu email. Você pode cancelar a inscrição a qualquer momento.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>FALE CONOSCO</h2>
+        <div class="title-line"></div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <h4>Telefone</h4>
+                    <p>(11) 99999-9999</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email</h4>
+                    <p>contato@doceriasocial.com.br</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Endereço</h4>
+                    <p>São Paulo, SP - Brasil</p>
+                </div>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Seu Nome" required>
+                <input type="email" placeholder="Seu Email" required>
+                <textarea placeholder="Sua Mensagem" rows="5" required></textarea>
+                <button type="submit" class="btn btn-primary">ENVIAR MENSAGEM</button>
             </form>
         </div>
     </section>
@@ -193,37 +283,37 @@
             <div class="footer-section">
                 <h4>LOJA</h4>
                 <ul>
-                    <li><a href="#">Todos os Sabores</a></li>
+                    <li><a href="#flavors">Todos os Sabores</a></li>
+                    <li><a href="#custom">Bolos Personalizados</a></li>
                     <li><a href="#">Caixas de Presentes</a></li>
-                    <li><a href="#">Bolos Personalizados</a></li>
                     <li><a href="#">Acessórios</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>INFORMAÇÕES</h4>
                 <ul>
-                    <li><a href="#">Sobre Nós</a></li>
-                    <li><a href="#">Nossa História</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#about">Nossa História</a></li>
                     <li><a href="#">Eventos</a></li>
                     <li><a href="#">Perguntas Frequentes</a></li>
                 </ul>
             </div>
             <div class="footer-section">
-                <h4>ATENDIMENTO AO CLIENTE</h4>
+                <h4>ATENDIMENTO</h4>
                 <ul>
-                    <li><a href="#">Contato</a></li>
+                    <li><a href="#contact">Contato</a></li>
                     <li><a href="#">Envio e Entrega</a></li>
-                    <li><a href="#">Devoluções e Reembolsos</a></li>
+                    <li><a href="#">Devoluções</a></li>
                     <li><a href="#">Instruções de Cuidado</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>SEJA SOCIAL</h4>
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <li><a href="#"><i class="fab fa-tiktok"></i></a>
-                    <li><a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" title="Pinterest"><i class="fab fa-pinterest"></i></a>
                 </div>
             </div>
         </div>
@@ -235,6 +325,9 @@
             </div>
         </div>
     </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
 
     <script src="script.js"></script>
 </body>
