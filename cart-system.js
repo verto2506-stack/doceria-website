@@ -374,7 +374,7 @@ function closeMyOrdersModal() {
 
 function getOrderStatusLabel(status) {
     const labels = {
-        'pending': '⏳ Aguardando Aceitaç��o',
+        'pending': '⏳ Aguardando Aceitação',
         'preparing': '🔥 Em Preparação',
         'completed': '✅ Finalizado'
     };
