@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doceria Social - Bolos Caseiros Artesanais 🍰</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -30,7 +31,7 @@
                 <div class="nav-icons">
                     <a href="#search" class="icon-link"><i class="fas fa-search"></i></a>
                     <a href="#account" class="icon-link"><i class="fas fa-user"></i></a>
-                    <a href="#cart" class="icon-link cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
+                    <a href="#" class="icon-link cart-icon" onclick="openCartModal(); event.preventDefault();"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
                 </div>
                 <div class="hamburger">
                     <span></span>
@@ -106,7 +107,7 @@
                 </div>
                 <h3>BOLO ANIVERS.</h3>
                 <p class="flavor-price">R$ 39,90</p>
-                <button class="btn-flavor">COMPRE AGORA</button>
+                <button class="btn-flavor" onclick="addToCart('BOLO ANIVERS.', 39.90)">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
                 <div class="flavor-image">
@@ -116,7 +117,7 @@
                 </div>
                 <h3>CHOCOLATE INTENSO</h3>
                 <p class="flavor-price">R$ 42,90</p>
-                <button class="btn-flavor">COMPRE AGORA</button>
+                <button class="btn-flavor" onclick="addToCart('CHOCOLATE INTENSO', 42.90)">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
                 <div class="flavor-image">
@@ -126,7 +127,7 @@
                 </div>
                 <h3>VELUDO VERMELHO</h3>
                 <p class="flavor-price">R$ 45,90</p>
-                <button class="btn-flavor">COMPRE AGORA</button>
+                <button class="btn-flavor" onclick="addToCart('VELUDO VERMELHO', 45.90)">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
                 <div class="flavor-image">
@@ -136,7 +137,7 @@
                 </div>
                 <h3>MORANGO DELICIOSO</h3>
                 <p class="flavor-price">R$ 41,90</p>
-                <button class="btn-flavor">COMPRE AGORA</button>
+                <button class="btn-flavor" onclick="addToCart('MORANGO DELICIOSO', 41.90)">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
                 <div class="flavor-image">
@@ -146,7 +147,7 @@
                 </div>
                 <h3>COOKIES & CREME</h3>
                 <p class="flavor-price">R$ 43,90</p>
-                <button class="btn-flavor">COMPRE AGORA</button>
+                <button class="btn-flavor" onclick="addToCart('COOKIES & CREME', 43.90)">COMPRE AGORA</button>
             </div>
             <div class="flavor-card">
                 <div class="flavor-image">
@@ -156,7 +157,7 @@
                 </div>
                 <h3>CARAMELO SALGADO</h3>
                 <p class="flavor-price">R$ 44,90</p>
-                <button class="btn-flavor">COMPRE AGORA</button>
+                <button class="btn-flavor" onclick="addToCart('CARAMELO SALGADO', 44.90)">COMPRE AGORA</button>
             </div>
         </div>
         <button class="btn btn-view-all">VER TODOS OS SABORES</button>
@@ -329,6 +330,156 @@
     <!-- Notification Toast -->
     <div id="toast" class="toast"></div>
 
+    <!-- CART MODALS -->
+    <div id="cart-modal" class="modal-overlay">
+        <div class="modal-content cart-modal-content">
+            <div class="modal-header">
+                <h2>🛒 Seu Carrinho</h2>
+                <button class="close-btn" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-empty" class="empty-state" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Seu carrinho está vazio</p>
+                    <p class="small-text">Adicione bolos deliciosos para começar!</p>
+                    <button class="btn btn-primary" onclick="closeCartModal()">Voltar ao Site</button>
+                </div>
+                <div id="cart-items-container" class="cart-items-list"></div>
+                <div id="cart-total" class="cart-total"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="clearCart()">Limpar Carrinho</button>
+                <button class="btn btn-secondary" onclick="closeCartModal()">Continuar Comprando</button>
+                <button class="btn btn-primary" id="checkout-btn" onclick="openCheckout()">Finalizar Pedido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal-overlay">
+        <div class="modal-content checkout-modal-content">
+            <div class="modal-header">
+                <h2>📝 Finalizar Pedido</h2>
+                <button class="close-btn" onclick="closeCheckoutModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="checkout-form" onsubmit="event.preventDefault(); processOrder();">
+                    <div class="form-section">
+                        <h3>Informações Pessoais</h3>
+                        <div class="form-group">
+                            <label>Nome Completo *</label>
+                            <input type="text" id="client-name" placeholder="João Silva" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Número de Telefone *</label>
+                            <input type="tel" id="client-phone" placeholder="(11) 99999-9999" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Endereço Completo *</label>
+                            <textarea id="client-address" placeholder="Rua, número, bairro, cidade, CEP" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Forma de Pagamento</h3>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment" id="payment-method" value="Dinheiro na Entrega" required>
+                                <span class="payment-label">
+                                    <i class="fas fa-money-bill"></i>
+                                    <div>
+                                        <strong>Dinheiro na Entrega</strong>
+                                        <small>Pague quando receber</small>
+                                    </div>
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" id="payment-method" value="PIX na Entrega" required>
+                                <span class="payment-label">
+                                    <i class="fas fa-qrcode"></i>
+                                    <div>
+                                        <strong>PIX na Entrega</strong>
+                                        <small>Código QR fornecido na entrega</small>
+                                    </div>
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" id="payment-method" value="Cartão na Entrega" required>
+                                <span class="payment-label">
+                                    <i class="fas fa-credit-card"></i>
+                                    <div>
+                                        <strong>Cartão na Entrega</strong>
+                                        <small>Débito ou crédito no ato</small>
+                                    </div>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="payment-info-banner">
+                            <i class="fas fa-info-circle"></i>
+                            <p><strong>Informação Importante:</strong> O pagamento é realizado SOMENTE no ato da entrega. Nenhum valor será cobrado antecipadamente.</p>
+                        </div>
+                    </div>
+
+                    <div class="order-preview">
+                        <h3>Resumo do Pedido</h3>
+                        <div class="preview-items">
+                            <!-- Preenchido via JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeCheckoutModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal-overlay">
+        <div class="modal-content confirmation-modal-content">
+            <div id="confirmation-content"></div>
+            <div class="confirmation-footer">
+                <button class="btn btn-primary" onclick="closeConfirmationModal(); viewMyOrders();">Ver Meus Pedidos</button>
+                <button class="btn btn-secondary" onclick="closeConfirmationModal()">Voltar ao Site</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Orders Modal -->
+    <div id="my-orders-modal" class="modal-overlay">
+        <div class="modal-content orders-modal-content">
+            <div class="modal-header">
+                <h2>📦 Meus Pedidos</h2>
+                <button class="close-btn" onclick="closeMyOrdersModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="my-orders-content"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeMyOrdersModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" class="modal-overlay">
+        <div class="modal-content order-details-modal-content">
+            <div class="modal-header">
+                <h2>Detalhes do Pedido</h2>
+                <button class="close-btn" onclick="closeOrderDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="order-details-content"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeOrderDetailsModal(); closeMyOrdersModal();">Voltar</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script src="cart-system.js"></script>
 </body>
 </html>
